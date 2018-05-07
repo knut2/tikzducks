@@ -1,0 +1,86 @@
+%
+% Experimente 
+%
+\documentclass[tikz]{standalone}
+\usepackage{luatex85}
+\usepackage{tikzducks}
+\usetikzlibrary{ducks}
+
+% Flexible Checkerboards - based on the definition for checkerboard, but with different size.
+% https://tex.stackexchange.com/questions/427208/how-to-create-a-twocolored-checkerboard-pattern-with-tikz
+% Define size of own check in pattern
+\newlength{\flexcheckerboardsize}
+
+%Define a new checkerboard with predefined size and colors.
+%Parameters: Name, size, color1, color2
+\newcommand{\defineflexcheckerboard}[4]{
+    \setlength{\flexcheckerboardsize}{#2}
+    \pgfdeclarepatterninherentlycolored{#1}
+        {\pgfpointorigin}{\pgfqpoint{2\flexcheckerboardsize}    
+        {2\flexcheckerboardsize}}
+        {\pgfqpoint{2\flexcheckerboardsize}
+        {2\flexcheckerboardsize}}%
+        {
+            \pgfsetfillcolor{#4}
+            \pgfpathrectangle{\pgfpointorigin}{
+            \pgfqpoint{2.1\flexcheckerboardsize}    
+                {2.1\flexcheckerboardsize}}% make
+                                % slightly larger to ensure that tiles
+                                % are really solid
+          \pgfusepath{fill}
+          \pgfsetfillcolor{#3}
+          \pgfpathrectangle{\pgfpointorigin}
+            {\pgfqpoint{\flexcheckerboardsize}
+            {\flexcheckerboardsize}}
+          \pgfpathrectangle{\pgfqpoint{\flexcheckerboardsize}
+            {\flexcheckerboardsize}}
+            {\pgfqpoint{\flexcheckerboardsize}
+            {\flexcheckerboardsize}}
+            \pgfusepath{fill}
+        }
+}
+
+\defineflexcheckerboard{flexcheckerboard_ssve}{.5mm}{green}{red}
+
+\begin{document}
+
+\begin{tikzpicture}
+  \duck[
+    water=cyan!50!blue,
+    bathingcap=red,
+    ]
+\end{tikzpicture}
+
+\begin{tikzpicture}
+\duck[
+  water=cyan!50!blue,
+  bathingcap,
+  bathingcapearmuff,
+  bathingcapnumber=24,
+  bathingcappattern=flexcheckerboard_ssve, %SSVE-colors
+%   waterpoloball,
+  ]
+\end{tikzpicture}
+
+\begin{tikzpicture}
+  \draw (0,3) pic[
+    duck/bathingcap=red!30, 
+    ]{duck};
+  \draw (3,3) pic[
+    duck/bathingcap=blue!50,
+    ]{duck};
+  \draw (0,0) pic[
+    duck/bathingcap,
+    duck/bathingcapnumber=5,
+    duck/bathingcapearmuff,
+%     rotate around y=180,  %fixme: (also bug with eyes)
+    ]{duck};
+  \draw (3,0) pic[
+    duck/bathingcap,
+    duck/bathingcapnumber=10,
+    duck/bathingcapearmuff,
+    duck/bathingcappattern=flexcheckerboard_ssve, %SSVE-colors
+    ]{duck};
+\end{tikzpicture}
+
+\end{document}

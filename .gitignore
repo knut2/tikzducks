@@ -18,6 +18,7 @@ test.tex
 *.listing
 *.dvi
 *.ind
-*ilg
-*idx
+*.ilg
+*.idx
+*.log
 *.gif

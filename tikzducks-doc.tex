@@ -526,6 +526,29 @@ There is a multitude of things a duck might need. The following examples all als
 \end{tikzpicture}
 \end{tcblisting}
 
+\addtocounter{footnote}{1}
+\begin{tcblisting}{title={Bathing duck}$^{\thefootnote}$}
+\begin{tikzpicture}
+	\duck[bathingcap=blue]
+\end{tikzpicture}
+\begin{tikzpicture}
+	\duck[bathingcap=blue,bathingcappattern=crosshatch dots gray]
+\end{tikzpicture}
+\end{tcblisting}
+\footnotetext[\thefootnote]{Ducks love to swim!}
+
+\addtocounter{footnote}{1}
+\begin{tcblisting}{title={Water polo duck}$^{\thefootnote}$}
+\begin{tikzpicture}
+	\duck[bathingcap=blue,bathingcapearmuff]
+\end{tikzpicture}
+\begin{tikzpicture}
+	\duck[bathingcap=blue,bathingcapearmuff, bathingcapnumber=12]
+\end{tikzpicture}
+\end{tcblisting}
+\footnotetext[\thefootnote]{Water polo player nead an ear muff to protect the ears and a number on the cap.}
+
+
 \begin{tcblisting}{title={Glasses duck}}
 \begin{tikzpicture}
 	\duck[glasses=red!50!black]

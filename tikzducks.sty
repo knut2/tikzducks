@@ -81,6 +81,8 @@
 \newif\ifduck@tophat
 \newif\ifduck@darthvader
 \newif\ifduck@harlequin
+\newif\ifduck@bathingcap
+\newif\ifduck@bathingcapearmuff
 % Accessories %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newif\ifduck@glasses
 \newif\ifduck@sunglasses
@@ -225,6 +227,10 @@
   darth vader/.forward to=/duck/darthvader,
   harlequin/.code    = \duck@harlequintrue   \def\duck@harlequin{#1},
   niuqelrah/.code	   =                       \def\duck@niuqelrah{#1},
+  bathingcap/.code           = \duck@bathingcaptrue     \def\duck@bathingcap{#1} \def\duck@bathingcappattern{},
+  bathingcapnumber/.code     = \def\duck@bathingcapnumber{#1},
+  bathingcappattern/.code    = \def\duck@bathingcappattern{#1},
+  bathingcapearmuff/.code    = \duck@bathingcapearmufftrue,
   % setting defaults %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   alien/.default     = green,    
   hat/.default       = brown,
@@ -248,6 +254,7 @@
   darthvader/.default= black,
   harlequin/.default = blue,
   niuqelrah          = red,
+  bathingcap/.default   = blue!30,
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   %
   % Accessories
@@ -625,6 +632,24 @@
   \fill[\duck@cap, start angle=0, end angle=150, radius=0.5] (1.4,1.75) arc;
   \fill[\duck@cap,rotate=-15] (0.3,2.05) ellipse (0.6 and 0.15);
 \fi  
+%
+% bathingcap %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Options:
+%   bathingcap=color (This is the color for the cap. in combination with a pattern, it is the color of the pattern.
+%  bathingcappattern=pattern,
+\ifduck@bathingcap
+  \path[fill,\duck@bathingcap,pattern=\duck@bathingcappattern,pattern color=\duck@bathingcap]  \duckpathbathingcap;
+  \ifduck@bathingcapearmuff
+    \draw[black!60] ([yshift=-4.2,xshift=-0.3]bill) .. controls ([xshift=12]bill) .. (1.1547,1.4575);%define the Strap
+%     \fill[preaction={fill,black!70},pattern=dots, pattern color=\duck@head,rotate =-35] ([xshift=10,yshift=15]bill) circle (0.15 and 0.20);
+    \fill[rotate =-35,\duck@bathingcap,pattern=\duck@bathingcappattern,pattern color=\duck@bathingcap] ([xshift=10,yshift=15]bill) circle (0.15 and 0.20);
+    \fill[rotate =-35,pattern=dots,pattern color=gray] ([xshift=10,yshift=15]bill) circle (0.15 and 0.20);
+  \fi
+  \ifdefined\duck@bathingcapnumber  
+    \node[circle, inner sep=0pt, minimum size=6,fill=white] at ($(head)+(.15,-.05)$) {\tiny\texttt \duck@bathingcapnumber};
+%     \node[inner sep=0pt, minimum size=6,color=white] at ($(head)+(.15,-.05)$) {\tiny\texttt\bf \duck@bathingcapnumber};
+  \fi
+\fi
 %
 % Santa %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \ifduck@santa
@@ -1289,6 +1314,14 @@
   (1.0646,1.0243) .. controls (1.0541,1.1714) and (1.2642,1.1654) .. 
   (1.2492,1.3860) .. controls (1.3093,1.3110) and (1.4383,1.2705) .. 
   (1.4338,1.0258) -- cycle;
+}
+% water polo cap %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\duckpathbathingcap}{%
+  (1.3947,1.3175) .. controls (1.4546,1.4518) and (1.4699,1.6566) .. 
+  (1.4343,1.7992) .. controls (1.2528,2.5033) and (0.2339,2.2710) .. 
+  (0.4151,1.5907) .. controls (0.4345,1.8709) and (0.7421,1.9599) .. 
+  (0.9494,1.6554) .. controls (1.0241,1.5476) ..
+  (1.1947,1.4175) -- cycle
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
