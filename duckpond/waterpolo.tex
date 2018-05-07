@@ -1,16 +1,20 @@
 %
-% Experimente 
+% Experiments with bathing and water polo caps.
 %
 \documentclass[tikz]{standalone}
 \usepackage{luatex85}
-\usepackage{tikzducks}
-\usetikzlibrary{ducks}
+% \usepackage{tikzducks}
+% \usetikzlibrary{ducks}
+\usepackage{../tikzducks}%For test during development. Overwrite Standard pathes
+\tikzset{duck/.pic={\duck@draw},
+  duck/.search also={,/tikz,/pgf},
+}
+
 
 % Flexible Checkerboards - based on the definition for checkerboard, but with different size.
 % https://tex.stackexchange.com/questions/427208/how-to-create-a-twocolored-checkerboard-pattern-with-tikz
 % Define size of own check in pattern
 \newlength{\flexcheckerboardsize}
-
 %Define a new checkerboard with predefined size and colors.
 %Parameters: Name, size, color1, color2
 \newcommand{\defineflexcheckerboard}[4]{
@@ -39,7 +43,7 @@
             \pgfusepath{fill}
         }
 }
-
+%Define a team cap
 \defineflexcheckerboard{flexcheckerboard_ssve}{.5mm}{green}{red}
 
 \begin{document}
@@ -57,8 +61,14 @@
   bathingcap,
   bathingcapearmuff,
   bathingcapnumber=24,
+  waterpolocap=24,
   bathingcappattern=flexcheckerboard_ssve, %SSVE-colors
-%   waterpoloball,
+  ]
+\duck[  
+  water=cyan!50!blue,
+  waterpolocap=24,
+  waterpolopattern=flexcheckerboard_ssve, %SSVE-colors,
+  xshift=100
   ]
 \end{tikzpicture}
 

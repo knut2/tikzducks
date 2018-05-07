@@ -231,6 +231,8 @@
   bathingcapnumber/.code     = \def\duck@bathingcapnumber{#1},
   bathingcappattern/.code    = \def\duck@bathingcappattern{#1},
   bathingcapearmuff/.code    = \duck@bathingcapearmufftrue,
+  waterpolocap/.code     = \duck@bathingcaptrue  \duck@bathingcapearmufftrue \def\duck@bathingcap{} \def\duck@bathingcappattern{} \def\duck@bathingcapnumber{#1},
+  waterpolopattern/.code    = \def\duck@bathingcappattern{#1},%alias bathingcappattern
   % setting defaults %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   alien/.default     = green,    
   hat/.default       = brown,
@@ -637,17 +639,17 @@
 % Options:
 %   bathingcap=color (This is the color for the cap. in combination with a pattern, it is the color of the pattern.
 %  bathingcappattern=pattern,
+%  bathingcapnumber=num,
 \ifduck@bathingcap
   \path[fill,\duck@bathingcap,pattern=\duck@bathingcappattern,pattern color=\duck@bathingcap]  \duckpathbathingcap;
   \ifduck@bathingcapearmuff
     \draw[black!60] ([yshift=-4.2,xshift=-0.3]bill) .. controls ([xshift=12]bill) .. (1.1547,1.4575);%define the Strap
 %     \fill[preaction={fill,black!70},pattern=dots, pattern color=\duck@head,rotate =-35] ([xshift=10,yshift=15]bill) circle (0.15 and 0.20);
     \fill[rotate =-35,\duck@bathingcap,pattern=\duck@bathingcappattern,pattern color=\duck@bathingcap] ([xshift=10,yshift=15]bill) circle (0.15 and 0.20);
-    \fill[rotate =-35,pattern=dots,pattern color=gray] ([xshift=10,yshift=15]bill) circle (0.15 and 0.20);
+    \fill[rotate =-35,pattern=dots,pattern color=black!80] ([xshift=10,yshift=15]bill) circle (0.15 and 0.20);
   \fi
-  \ifdefined\duck@bathingcapnumber  
-    \node[circle, inner sep=0pt, minimum size=6,fill=white] at ($(head)+(.15,-.05)$) {\tiny\texttt \duck@bathingcapnumber};
-%     \node[inner sep=0pt, minimum size=6,color=white] at ($(head)+(.15,-.05)$) {\tiny\texttt\bf \duck@bathingcapnumber};
+  \ifdefined\duck@bathingcapnumber
+    \node[circle, inner sep=0pt, minimum size=6,fill=white] at ($(head)+(.25,-.15)$) {\tiny\texttt \duck@bathingcapnumber};
   \fi
 \fi
 %
@@ -1315,7 +1317,7 @@
   (1.2492,1.3860) .. controls (1.3093,1.3110) and (1.4383,1.2705) .. 
   (1.4338,1.0258) -- cycle;
 }
-% water polo cap %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% bathing/water polo cap %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newcommand{\duckpathbathingcap}{%
   (1.3947,1.3175) .. controls (1.4546,1.4518) and (1.4699,1.6566) .. 
   (1.4343,1.7992) .. controls (1.2528,2.5033) and (0.2339,2.2710) .. 
