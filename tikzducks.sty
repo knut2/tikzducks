@@ -230,8 +230,8 @@
   bathingcap/.code           = \duck@bathingcaptrue     \def\duck@bathingcap{#1} \def\duck@bathingcappattern{},
   bathingcapnumber/.code     = \def\duck@bathingcapnumber{#1},
   bathingcappattern/.code    = \def\duck@bathingcappattern{#1},
-  bathingcapearmuff/.code    = \duck@bathingcapearmufftrue,
-  waterpolocap/.code     = \duck@bathingcaptrue  \duck@bathingcapearmufftrue \def\duck@bathingcap{} \def\duck@bathingcappattern{} \def\duck@bathingcapnumber{#1},
+  bathingcapearmuff/.code    = \duck@bathingcapearmufftrue \def\duck@bathingcapearmuff{#1},
+  waterpolocap/.code     = \duck@bathingcaptrue  \duck@bathingcapearmufftrue \def\duck@bathingcap{} \def\duck@bathingcappattern{} \def\duck@bathingcapearmuff{} \def\duck@bathingcapnumber{#1},
   waterpolopattern/.code    = \def\duck@bathingcappattern{#1},%alias bathingcappattern
   % setting defaults %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   alien/.default     = green,    
@@ -645,7 +645,7 @@
   \ifduck@bathingcapearmuff
     \draw[black!60] ([yshift=-4.2,xshift=-0.3]bill) .. controls ([xshift=12]bill) .. (1.1547,1.4575);%define the Strap
 %     \fill[preaction={fill,black!70},pattern=dots, pattern color=\duck@head,rotate =-35] ([xshift=10,yshift=15]bill) circle (0.15 and 0.20);
-    \fill[rotate =-35,\duck@bathingcap,pattern=\duck@bathingcappattern,pattern color=\duck@bathingcap] ([xshift=10,yshift=15]bill) circle (0.15 and 0.20);
+    \fill[rotate =-35,\duck@bathingcap,pattern=\duck@bathingcappattern,pattern color=\duck@bathingcap,\duck@bathingcapearmuff] ([xshift=10,yshift=15]bill) circle (0.15 and 0.20);
     \fill[rotate =-35,pattern=dots,pattern color=black!80] ([xshift=10,yshift=15]bill) circle (0.15 and 0.20);
   \fi
   \ifdefined\duck@bathingcapnumber
