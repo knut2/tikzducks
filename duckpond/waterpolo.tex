@@ -46,6 +46,72 @@
 %Define a team cap
 \defineflexcheckerboard{flexcheckerboard_ssve}{.5mm}{green}{red}
 
+
+\usetikzlibrary{backgrounds}%framed
+%
+% The water polo field is defined as 30x20.
+% 
+% The center is coordinate (0,0)
+% The home area is defined on the left side with negative x-coordinates.
+% The guest area is defined on the left side with positive x-coordinates.
+\newenvironment{waterpolofield}[1][]{
+  \begin{tikzpicture}[framed,#1]
+    %Main field
+    \draw [fill=blue!55] (-15,-10) rectangle (15,10);
+    \node [rectangle ,draw,anchor= north, minimum width=6cm, minimum height=2cm] at (0,-11) {Protokolltisch};
+    \node [rectangle ,draw,minimum height=12mm,minimum width=30mm,rotate=30] at (-15.5,11.5) {Spielerbank};
+    \node [rectangle ,draw,minimum height=12mm,minimum width=30mm,rotate=-30] at (15.5,11.5) {Spielerbank};
+    %Wiedereinlass
+    \node [anchor=south east,rectangle,draw,fill=red,minimum height=20mm,rotate=90] at (-15.2,10) {Wiedereintrittraum};
+    \node [anchor=south west,rectangle,draw,fill=red,minimum height=20mm,rotate=-90] at (15.2,10) {Wiedereintrittraum};
+    
+    %center
+    \draw (0,-10) -- (0,10);
+    %goal: 3m, 30cm before line
+    \draw [fill=gray] (-15.3,-1.5) rectangle node [rotate=90] {Tor} (-14.7,1.5);
+    \draw [fill=gray] ( 14.7,-1.5) rectangle node [rotate=-90] {Tor} (15.3,1.5);
+    %2m-line red
+    \draw [red] (-13,-10) -- (-13,10);
+    \draw [fill=red] (-15,-10) rectangle (-13,-10.1);
+    \draw [fill=red] (-15,10) rectangle (-13,10.1);
+    \draw [fill=red] (13,-10) rectangle (15,-10.1);
+    \draw [fill=red] (13,10) rectangle (15,10.1);
+    \draw [red] (13,-10) -- (13,10);
+    %5m-line yellow
+    \draw [yellow] (-10,-10) -- (-10,10);
+    \draw [yellow] (10,-10) -- (10,10);
+    \draw [fill=yellow] (-10,-10) rectangle (-13,-10.1);%???
+    \draw [fill=yellow] (13,-10) rectangle (10,-10.1);%???
+    \draw [fill=yellow] (-10,10) rectangle (-13,10.1);%???
+    \draw [fill=yellow] (13,10) rectangle (10,10.1);%???
+    %
+    \draw [fill=green] (-10,-10) rectangle (10,-10.1);%???
+    \draw [fill=green] (-10,10) rectangle (10,10.1);%???
+}{
+    \end{tikzpicture}
+}
+
+  %Guest
+  % \duckG{pos}{num}
+  % positive x-coordinates are in the own field area.
+  \newcommand{\duckG}[2]{
+    \draw (#1) pic[
+      duck/bathingcap=red,
+      duck/bathingcapnumber=#2,
+      duck/bathingcapearmuff,      
+      ]{duck};  
+  }
+  %Home
+  % \duckH{pos}{num}
+  \newcommand{\duckH}[2]{\begin{scope}[xscale=-1,transform shape]
+    \draw (#1) pic[
+      duck/bathingcap=green,
+      duck/bathingcapnumber=\reflectbox{#2},
+      duck/bathingcapearmuff,      
+      ]{duck};  \end{scope}
+  }
+
+
 \begin{document}
 
 \begin{tikzpicture}
@@ -60,13 +126,12 @@
   water=cyan!50!blue,
   bathingcap,
   bathingcapearmuff,
-  bathingcapnumber=24,
-  waterpolocap=24,
+  bathingcapnumber=14,
   bathingcappattern=flexcheckerboard_ssve, %SSVE-colors
   ]
 \duck[  
   water=cyan!50!blue,
-  waterpolocap=24,
+  waterpolocap=10,
   waterpolopattern=flexcheckerboard_ssve, %SSVE-colors,
   xshift=100
   ]
@@ -92,5 +157,26 @@
     duck/bathingcappattern=flexcheckerboard_ssve, %SSVE-colors
     ]{duck};
 \end{tikzpicture}
+
+  \begin{waterpolofield}
+  %Home
+   \duckH{13,0}{1}
+   \duckH{0,0}{2}
+   \duckH{0,4}{3}
+   \duckH{0,7}{4}
+   \duckH{0,-4}{5}
+   \duckH{0,-8}{6}
+   \duckH{5,0}{7}
+
+  %Guest
+   \duckG{13,0}{1}
+   \duckG{0,0}{2}
+   \duckG{0,4}{3}
+   \duckG{0,7}{4}
+   \duckG{0,-4}{5}
+   \duckG{0,-8}{6}
+   \duckG{5,0}{7}
+
+  \end{waterpolofield}
 
 \end{document}
